@@ -1,0 +1,106 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"time"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
+)
+
+func Setup() {
+	var err error
+
+	if err = config.Setup(); err != nil {
+		log.Fatal(err)
+	}
+
+	/*
+		if err = cache.GetInstance().Setup(cache.Config{
+			Type:         config.Env.RedisType,
+			EndpointList: config.Env.RedisEndpointList,
+			Password:     config.Env.RedisPassword,
+		}); err != nil {
+			log.Fatalf("cache Setup, error:%v", err)
+		}
+	*/
+
+	/*
+		if err = database.GetInstance().Setup(database.Config{
+			URI: config.Env.MongoURI,
+		}); err != nil {
+			log.Fatalf("database Setup, error:%v", err)
+		}
+	*/
+
+	/*
+		if err = postgres.GetInstance().Setup(postgres.Config{
+			Username:                config.Env.PostgresUsername,
+			Password:                config.Env.PostgresPassword,
+			Host:                    config.Env.PostgresHost,
+			Port:                    config.Env.PostgresPort,
+			TableName:               config.Env.PostgresName,
+			MinConnSize:             config.Env.PostgresMinConnSize,
+			MaxConnSize:             config.Env.PostgresMaxConnSize,
+			MaxConnIdleTimeBySecond: time.Duration(config.Env.PostgresMaxConnIdleTimeBySecond),
+			MaxConnLifetimeBySecond: time.Duration(config.Env.PostgresMaxConnLifeTimeBySecond),
+		}); err != nil {
+			log.Fatalf("postgres Setup, error:%v", err)
+		}
+	*/
+
+	/*
+		if err = queue.GetInstance().Setup(queue.Config{
+			Url: config.Env.NatsUrl,
+		}); err != nil {
+			log.Fatalf("queue Setup, error:%v", err)
+		}
+	*/
+
+	/*
+		if err = search.GetInstance().Setup(search.Config{
+			Url:         config.Env.ElasticsearchUrl,
+			IndexPrefix: config.Env.ElasticsearchIndexPrefix,
+		}); err != nil {
+			log.Fatalf("search Setup, error:%v", err)
+		}
+	*/
+
+	if err = logger.Setup(config.Env.LogLevel); err != nil {
+		log.Fatal(err)
+	}
+
+	if err = client.Setup(); err != nil {
+		log.Fatal(err)
+	}
+
+	if err = router.Setup(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func Close() {
+}
+
+func RunServer() {
+	s := &http.Server{
+		Addr:         fmt.Sprintf(":%s", config.Env.Port),
+		Handler:      router.Router,
+		ReadTimeout:  30 * time.Minute,
+		WriteTimeout: 30 * time.Minute,
+	}
+	if err := s.ListenAndServe(); err != nil {
+		log.Fatalf("%s\n", err)
+	}
+}
+
+// @title        Community Service Swagger
+// @description  this service is Community Service
+func main() {
+	Setup()
+	defer Close()
+	RunServer()
+}
