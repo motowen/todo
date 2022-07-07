@@ -40,5 +40,5 @@ func GenRandomString(length int) string {
 }
 
 func GetCurrentMilliseconds() int64 {
-	return time.Now().Unix() * 1000
+	return time.Now().UnixMilli()
 }
