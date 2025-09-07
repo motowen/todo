@@ -2,12 +2,14 @@ package test
 
 import (
 	"fmt"
-	"github.com/jarcoal/httpmock"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/jarcoal/httpmock"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
 )
@@ -61,6 +63,10 @@ func Setup() {
 
 	if err = config.Setup(); err != nil {
 		log.Fatal(err)
+	}
+
+	if err = database.Setup(config.Env.MongoURI); err != nil {
+		log.Fatalf("database Setup, error:%v", err)
 	}
 
 	/*
@@ -118,9 +124,7 @@ func Setup() {
 		log.Fatal(err)
 	}
 
-	if err = client.Setup(); err != nil {
-		log.Fatal(err)
-	}
+	client.Setup()
 
 	if err = router.Setup(); err != nil {
 		log.Fatal(err)

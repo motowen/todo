@@ -5,12 +5,12 @@ import (
 )
 
 type ServiceResp struct {
-	Status int           `json:"status"`
-	ErrMsg ServiceErrMsg `json:"errMsg"`
+	Status  int            `json:"status"`
+	ErrCode ServiceErrCode `json:"errCode"`
 }
 
-type ServiceErrMsg struct {
-	Msg string `json:"msg"`
+type ServiceErrCode struct {
+	Code string `json:"code"`
 }
 
 type serviceError struct {
@@ -28,33 +28,53 @@ type serviceError struct {
 
 var ServiceError = serviceError{
 	OK: ServiceResp{
-		http.StatusOK, ServiceErrMsg{http.StatusText(http.StatusOK)},
+		http.StatusOK, ServiceErrCode{http.StatusText(http.StatusOK)},
 	},
-	Accepted: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusAccepted, ServiceErrMsg{msg}}
+	Accepted: func(code string) ServiceResp {
+		return ServiceResp{http.StatusAccepted, ServiceErrCode{code}}
 	},
 	NoContent: ServiceResp{
-		http.StatusNoContent, ServiceErrMsg{http.StatusText(http.StatusNoContent)},
+		http.StatusNoContent, ServiceErrCode{http.StatusText(http.StatusNoContent)},
 	},
 	Found: func(uri string) ServiceResp {
-		return ServiceResp{http.StatusFound, ServiceErrMsg{uri}}
+		return ServiceResp{http.StatusFound, ServiceErrCode{uri}}
 	},
-	NotModified: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusNotModified, ServiceErrMsg{msg}}
+	NotModified: func(code string) ServiceResp {
+		return ServiceResp{http.StatusNotModified, ServiceErrCode{code}}
 	},
-	BadRequestError: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusBadRequest, ServiceErrMsg{msg}}
+	BadRequestError: func(code string) ServiceResp {
+		return ServiceResp{http.StatusBadRequest, ServiceErrCode{code}}
 	},
-	ForbiddenError: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusForbidden, ServiceErrMsg{msg}}
+	ForbiddenError: func(code string) ServiceResp {
+		return ServiceResp{http.StatusForbidden, ServiceErrCode{code}}
 	},
 	NotFoundError: ServiceResp{
-		http.StatusNotFound, ServiceErrMsg{http.StatusText(http.StatusNotFound)},
+		http.StatusNotFound, ServiceErrCode{http.StatusText(http.StatusNotFound)},
 	},
-	FailedDependencyError: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusFailedDependency, ServiceErrMsg{msg}}
+	FailedDependencyError: func(code string) ServiceResp {
+		return ServiceResp{http.StatusFailedDependency, ServiceErrCode{code}}
 	},
-	InternalServiceError: func(msg string) ServiceResp {
-		return ServiceResp{http.StatusInternalServerError, ServiceErrMsg{msg}}
+	InternalServiceError: func(code string) ServiceResp {
+		return ServiceResp{http.StatusInternalServerError, ServiceErrCode{code}}
 	},
 }
+
+// DB
+const DBCreateTodoFail = "1001"
+const DBFindTodoFail = "1002"
+const DBUpdateTodoFail = "1003"
+const DBDeleteTodoFail = "1004"
+const DBTimeoutFail = "1005"
+const DBGetIconPresignedURLFail = "1006"
+
+// External
+const ExternalGetAuthTokenFail = "2001"
+const ExternalGetAuthTokenParseFail = "2002"
+const ExternalCreateVendorFail = "2011"
+const ExternalCreateVendorParseFail = "2012"
+const ExternalGetVendorFail = "2013"
+const ExternalUpdateVendorFail = "2014"
+const ExternalDeleteVendorFail = "2015"
+
+// HTTP
+const HttpMethodInvalid = "3001"

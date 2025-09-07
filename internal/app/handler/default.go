@@ -31,44 +31,44 @@ func VersionHandler(c *gin.Context) {
 func result(c *gin.Context, data interface{}, err model.ServiceResp) {
 	switch err.Status {
 	case http.StatusOK:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusOK, util.StructToJsonString(err.ErrMsg))
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusOK, util.StructToJsonString(err.ErrCode))
 		c.JSON(http.StatusOK, data)
 
 	case http.StatusAccepted:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusAccepted, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusAccepted, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusAccepted, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusAccepted, err.ErrCode)
 
 	case http.StatusNoContent:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNoContent, util.StructToJsonString(err.ErrMsg))
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNoContent, util.StructToJsonString(err.ErrCode))
 		c.JSON(http.StatusNoContent, nil)
 
 	case http.StatusFound:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusFound, util.StructToJsonString(err.ErrMsg))
-		location := url.URL{Path: err.ErrMsg.Msg}
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusFound, util.StructToJsonString(err.ErrCode))
+		location := url.URL{Path: err.ErrCode.Code}
 		c.Redirect(http.StatusFound, location.RequestURI())
 
 	case http.StatusNotModified:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNotModified, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusNotModified, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNotModified, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusNotModified, err.ErrCode)
 
 	case http.StatusBadRequest:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusBadRequest, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusBadRequest, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusBadRequest, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusBadRequest, err.ErrCode)
 
 	case http.StatusForbidden:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusForbidden, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusForbidden, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusForbidden, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusForbidden, err.ErrCode)
 
 	case http.StatusNotFound:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNotFound, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusNotFound, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusNotFound, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusNotFound, err.ErrCode)
 
 	case http.StatusFailedDependency:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusFailedDependency, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusFailedDependency, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusFailedDependency, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusFailedDependency, err.ErrCode)
 
 	default:
-		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusInternalServerError, util.StructToJsonString(err.ErrMsg))
-		c.JSON(http.StatusInternalServerError, err.ErrMsg)
+		logger.Info.Printf("status=%+v, resp=%+v\n", http.StatusInternalServerError, util.StructToJsonString(err.ErrCode))
+		c.JSON(http.StatusInternalServerError, err.ErrCode)
 	}
 }

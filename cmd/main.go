@@ -1,12 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/s3"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/sqs"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
 )
@@ -28,13 +33,9 @@ func Setup() {
 		}
 	*/
 
-	/*
-		if err = database.GetInstance().Setup(database.Config{
-			URI: config.Env.MongoURI,
-		}); err != nil {
-			log.Fatalf("database Setup, error:%v", err)
-		}
-	*/
+	if err = database.Setup(config.Env.MongoURI); err != nil {
+		log.Fatalf("database Setup, error:%v", err)
+	}
 
 	/*
 		if err = postgres.GetInstance().Setup(postgres.Config{
@@ -73,8 +74,25 @@ func Setup() {
 		log.Fatal(err)
 	}
 
-	if err = client.Setup(); err != nil {
-		log.Fatal(err)
+	client.Setup()
+
+	if s3API, err := s3.NewBaseS3API(s3.Config{
+		AWSS3Bucket:         config.Env.AWSS3Bucket,
+		AWSS3Region:         config.Env.AWSS3Region,
+		IsEnabledAccelerate: config.Env.IsEnabledAccelerate,
+	}); err != nil {
+		log.Fatalf("aws Setup, error:%v", err)
+	} else {
+		s3.SetInstance(s3API)
+	}
+
+	if sqsTest, err := sqs.NewBaseManager(sqs.Config{
+		QueueName: config.Env.AWSSQSQueueName,
+		Region:    config.Env.AWSSQSRegion,
+	}); err != nil {
+		log.Fatalf("sqs LodCreated Setup, region: %s, queue name: %s, error:%v", config.Env.AWSSQSRegion, config.Env.AWSSQSQueueName, err)
+	} else {
+		sqs.TestSQS = &sqsTest
 	}
 
 	if err = router.Setup(); err != nil {
@@ -97,10 +115,34 @@ func RunServer() {
 	}
 }
 
+func receiveMessage() {
+	for {
+		hasMsg, msg, err := sqs.TestSQS.ReceiveMessage(context.TODO(), 20, 30)
+		if err != nil {
+			log.Fatalf("ReceiveMessage, error:%v", err)
+		} else if hasMsg {
+			go func() {
+				logger.Info.Printf("received sqs message: %v", msg)
+
+				defer func() {
+					logger.Info.Printf("delete sqs message: %v", msg)
+					if err := sqs.TestSQS.DeleteMessage(context.TODO(), msg.ReceiptHandle); err != nil {
+						err = fmt.Errorf("fetch lod file failed to delete sqs message: %v", err)
+						logger.Error.Printf(err.Error())
+					}
+				}()
+			}()
+		} else {
+			logger.Info.Printf("no message received")
+		}
+	}
+}
+
 // @title        Community Service Swagger
 // @description  this service is Community Service
 func main() {
 	Setup()
 	defer Close()
+	go receiveMessage()
 	RunServer()
 }

@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"testing"
 
 	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
+	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
 )
 
 func HttpGet(path string, headers map[string]string) (resp *httptest.ResponseRecorder, err error) {
@@ -58,4 +60,12 @@ func setHeader(req *http.Request, headers map[string]string) {
 	for key, value := range headers {
 		req.Header.Set(key, value)
 	}
+}
+
+// WithDBCleanup registers a per-test cleanup that drops the test collection after each test case.
+func WithDBCleanup(t *testing.T) {
+	t.Helper()
+	t.Cleanup(func() {
+		_ = database.Drop()
+	})
 }

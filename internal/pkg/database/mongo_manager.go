@@ -2,52 +2,49 @@ package database
 
 import (
 	"context"
-	"fmt"
+	"errors"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 )
 
-var (
-	instance *Manager
-)
+var todoCollection *mongo.Collection
 
-func GetInstance() *Manager {
-	return instance
-}
+var ERROR_DATA_NOT_FOUND = errors.New("data not found")
 
-type Manager struct {
-	Client  *mongo.Client
-	context context.Context
-}
+func Setup(uri string) (err error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-type Config struct {
-	URI string
-}
-
-func (manager *Manager) Setup(config Config) error {
-	background := context.Background()
-
-	clientOptions := options.Client().ApplyURI(config.URI)
-	client, err := mongo.Connect(background, clientOptions)
+	cs, err := connstring.ParseAndValidate(uri)
 	if err != nil {
-		fmt.Printf("mongo connect fail, %+v\n", err)
-		return err
+		return
 	}
 
-	err = client.Ping(background, nil)
+	databaseName := cs.Database
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
+
 	if err != nil {
-		fmt.Printf("mongo ping fail, %+v\n", err)
-		return err
+		return
 	}
 
-	instance = &Manager{
-		Client:  client,
-		context: background,
+	err = client.Ping(ctx, readpref.Primary())
+
+	if err != nil {
+		return
 	}
 
-	return nil
+	todoCollection = client.Database(databaseName).Collection("validation")
+
+	return
 }
 
-func (manager *Manager) Close() {
-	manager.Client.Disconnect(manager.context)
+func Drop() (err error) {
+	if err = todoCollection.Drop(context.TODO()); err != nil {
+		return
+	}
+	return
 }

@@ -38,30 +38,33 @@ const (
 var Env EnvVariable
 
 type EnvVariable struct {
-	Version                         string   `env:"VERSION" envDefault:"0.4.4"`
-	Port                            string   `env:"GO_HTTP_PORT,required"`
-	LogLevel                        string   `env:"LOG_LEVEL" envDefault:"INFO"`
-	DeployEnvironment               string   `env:"DEPLOY_ENVIRONMENT" envDefault:"DEVELOP"`
-	AuthServiceHost                 string   `env:"AUTH_SERVICE_HOST,required"`
-	AuthClientID                    string   `env:"AUTH_CLIENT_ID,required"`
-	AuthClientSecret                string   `env:"AUTH_CLIENT_SECRET,required"`
-	AuthServiceCacheTTL             int64    `env:"AUTH_SERVICE_CACHE_TTL,required"`
-	RedisType                       string   `env:"REDIS_TYPE,required"`
-	RedisEndpointList               []string `env:"REDIS_ENDPOINT_LIST,required"`
-	RedisPassword                   string   `env:"REDIS_PASSWORD,required"`
-	MongoURI                        string   `env:"MONGO_URI,required"`
-	PostgresHost                    string   `env:"POSTGRES_HOST,required"`
-	PostgresPort                    string   `env:"POSTGRES_PORT,required"`
-	PostgresUsername                string   `env:"POSTGRES_USERNAME,required"`
-	PostgresPassword                string   `env:"POSTGRES_PASSWORD,required"`
-	PostgresName                    string   `env:"POSTGRES_NAME,required"`
-	PostgresMinConnSize             int32    `env:"POSTGRES_MIN_CONN_SIZE" envDefault:"0"`
-	PostgresMaxConnSize             int32    `env:"POSTGRES_MAX_CONN_SIZE" envDefault:"64"`
-	PostgresMaxConnIdleTimeBySecond int64    `env:"POSTGRES_CONN_IDLE_TIME_BY_SECOND" envDefault:"1"`
-	PostgresMaxConnLifeTimeBySecond int64    `env:"POSTGRES_CONN_LIFE_TIME_BY_SECOND" envDefault:"60"`
-	NatsUrl                         string   `env:"NATS_URL,required"`
-	ElasticsearchIndexPrefix        string   `env:"ELASTICSEARCH_INDEX_PREFIX,required"`
-	ElasticsearchUrl                string   `env:"ELASTICSEARCH_URL,required"`
+	Version             string `env:"VERSION" envDefault:"0.4.4"`
+	Port                string `env:"GO_HTTP_PORT,required"`
+	LogLevel            string `env:"LOG_LEVEL" envDefault:"INFO"`
+	DeployEnvironment   string `env:"DEPLOY_ENVIRONMENT" envDefault:"DEVELOP"`
+	AuthServiceHost     string `env:"AUTH_SERVICE_HOST,required"`
+	AuthClientID        string `env:"AUTH_CLIENT_ID,required"`
+	AuthClientSecret    string `env:"AUTH_CLIENT_SECRET,required"`
+	AuthServiceCacheTTL int64  `env:"AUTH_SERVICE_CACHE_TTL,required"`
+	//RedisType                       string   `env:"REDIS_TYPE,required"`
+	//RedisEndpointList               []string `env:"REDIS_ENDPOINT_LIST,required"`
+	//RedisPassword                   string   `env:"REDIS_PASSWORD,required"`
+	MongoURI string `env:"MONGO_URI,required"`
+	//PostgresHost                    string   `env:"POSTGRES_HOST,required"`
+	//PostgresPort                    string   `env:"POSTGRES_PORT,required"`
+	//PostgresUsername                string   `env:"POSTGRES_USERNAME,required"`
+	//PostgresPassword                string   `env:"POSTGRES_PASSWORD,required"`
+	//PostgresName                    string   `env:"POSTGRES_NAME,required"`
+	//PostgresMinConnSize             int32    `env:"POSTGRES_MIN_CONN_SIZE" envDefault:"0"`
+	//PostgresMaxConnSize             int32    `env:"POSTGRES_MAX_CONN_SIZE" envDefault:"64"`
+	//PostgresMaxConnIdleTimeBySecond int64    `env:"POSTGRES_CONN_IDLE_TIME_BY_SECOND" envDefault:"1"`
+	//PostgresMaxConnLifeTimeBySecond int64    `env:"POSTGRES_CONN_LIFE_TIME_BY_SECOND" envDefault:"60"`
+	VendorServiceHost   string `env:"VENDOR_SERVICE_HOST,required"`
+	AWSS3Bucket         string `env:"AWS_S3_BUCKET,required"`
+	AWSS3Region         string `env:"AWS_S3_REGION" envDefault:"us-west-2"`
+	IsEnabledAccelerate bool   `env:"AWS_S3_ACCELERATE" envDefault:"false"`
+	AWSSQSRegion        string `env:"AWS_SQS_REGION" envDefault:"us-west-2"`
+	AWSSQSQueueName     string `env:"AWS_SQS_QUEUE_NAME" envDefault:"default-queue"`
 }
 
 func (env EnvVariable) Validate() (err error) {
