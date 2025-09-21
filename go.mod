@@ -1,4 +1,4 @@
-module viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git
+module go-base
 
 go 1.23.0
 

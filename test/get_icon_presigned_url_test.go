@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/s3"
+	"go-base/internal/app/router"
+	"go-base/internal/pkg/aws/s3"
 )
 
 func Test_GetIconPresignedURL_Success_GET(t *testing.T) {

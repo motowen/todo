@@ -7,11 +7,12 @@ import (
 
 	"time"
 
+	"go-base/internal/pkg/aws/s3"
+	"go-base/internal/pkg/logger"
+	model "go-base/internal/pkg/model"
+	modelHttp "go-base/internal/pkg/model/http"
+
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/s3"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	model "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
-	modelHttp "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/http"
 )
 
 // Http Method

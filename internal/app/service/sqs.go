@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/sqs"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
-	modelHttp "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/http"
+	"go-base/internal/pkg/aws/sqs"
+	"go-base/internal/pkg/logger"
+	"go-base/internal/pkg/model"
+	modelHttp "go-base/internal/pkg/model/http"
 )
 
 // SendMessage sends a single message to the specified SQS queue

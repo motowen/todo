@@ -42,7 +42,7 @@ go get github.com/aws/aws-sdk-go-v2/service/s3@latest
 在您的應用程式啟動時：
 
 ```go
-import "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/s3"
+import "go-base/internal/pkg/aws/s3"
 
 // 設置 S3 配置
 s3Config := s3.Config{

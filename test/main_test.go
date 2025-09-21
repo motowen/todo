@@ -6,12 +6,13 @@ import (
 	"os"
 	"testing"
 
+	"go-base/internal/app/router"
+	"go-base/internal/pkg/config"
+	"go-base/internal/pkg/database"
+	"go-base/internal/pkg/http/client"
+	"go-base/internal/pkg/logger"
+
 	"github.com/jarcoal/httpmock"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
 )
 
 func TestMain(m *testing.M) {

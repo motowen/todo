@@ -7,8 +7,8 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	//"go.mongodb.org/mongo-driver/mongo"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	model "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/db"
+	"go-base/internal/pkg/logger"
+	model "go-base/internal/pkg/model/db"
 )
 
 func InsertTodo(todo model.Todo) (err error) {

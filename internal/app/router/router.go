@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/swag/example/basic/docs"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/handler"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
+	"go-base/internal/app/handler"
+	"go-base/internal/pkg/config"
 )
 
 var Router *gin.Engine

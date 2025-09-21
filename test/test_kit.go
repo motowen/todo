@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
+	"go-base/internal/app/router"
+	"go-base/internal/pkg/database"
 )
 
 func HttpGet(path string, headers map[string]string) (resp *httptest.ResponseRecorder, err error) {

@@ -1,8 +1,9 @@
 package handler
 
 import (
+	"go-base/internal/pkg/logger"
+
 	"github.com/gin-gonic/gin"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
 )
 
 func CORSMiddleware() gin.HandlerFunc {

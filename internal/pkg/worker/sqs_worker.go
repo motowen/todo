@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/sqs"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
+	"go-base/internal/pkg/aws/sqs"
+	"go-base/internal/pkg/config"
+	"go-base/internal/pkg/logger"
 )
 
 // MessageProcessor defines the interface for processing SQS messages

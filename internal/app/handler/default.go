@@ -4,11 +4,12 @@ import (
 	"net/http"
 	"net/url"
 
+	"go-base/internal/pkg/config"
+	"go-base/internal/pkg/logger"
+	"go-base/internal/pkg/model"
+	"go-base/internal/pkg/util"
+
 	"github.com/gin-gonic/gin"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/util"
 )
 
 // HealthHandler is health checker API

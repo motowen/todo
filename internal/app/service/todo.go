@@ -4,14 +4,14 @@ import (
 	"context"
 	"net/http"
 
-	externalAccount "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/service/external/account"
-	externalVendor "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/service/external/vendor"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
-	modelDB "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/db"
-	modelHttp "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/http"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/util"
+	externalAccount "go-base/internal/app/service/external/account"
+	externalVendor "go-base/internal/app/service/external/vendor"
+	"go-base/internal/pkg/database"
+	"go-base/internal/pkg/logger"
+	"go-base/internal/pkg/model"
+	modelDB "go-base/internal/pkg/model/db"
+	modelHttp "go-base/internal/pkg/model/http"
+	"go-base/internal/pkg/util"
 )
 
 // CreateTodo creates a new todo item

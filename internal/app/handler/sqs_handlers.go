@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/service"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	model "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
-	modelHttp "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model/http"
+	"go-base/internal/app/service"
+	"go-base/internal/pkg/logger"
+	model "go-base/internal/pkg/model"
+	modelHttp "go-base/internal/pkg/model/http"
 )
 
 // SendMessagesHandler handles sending multiple messages to SQS queue

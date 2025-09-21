@@ -6,10 +6,11 @@ import (
 	"strings"
 	"testing"
 
+	"go-base/internal/app/router"
+	externalAccount "go-base/internal/app/service/external/account"
+	"go-base/internal/pkg/config"
+
 	"github.com/jarcoal/httpmock"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
-	externalAccount "viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/service/external/account"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
 )
 
 func Test_CreateTodo_ShouldBindJSON_Error(t *testing.T) {

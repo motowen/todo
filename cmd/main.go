@@ -7,13 +7,13 @@ import (
 	"net/http"
 	"time"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/s3"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/aws/sqs"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/database"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
+	"go-base/internal/app/router"
+	"go-base/internal/pkg/aws/s3"
+	"go-base/internal/pkg/aws/sqs"
+	"go-base/internal/pkg/config"
+	"go-base/internal/pkg/database"
+	"go-base/internal/pkg/http/client"
+	"go-base/internal/pkg/logger"
 )
 
 func Setup() {

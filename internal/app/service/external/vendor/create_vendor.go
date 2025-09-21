@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/config"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/http/client"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/logger"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/pkg/model"
+	"go-base/internal/pkg/config"
+	"go-base/internal/pkg/http/client"
+	"go-base/internal/pkg/logger"
+	"go-base/internal/pkg/model"
 )
 
 type CreateVendorRequest struct {

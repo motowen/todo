@@ -5,8 +5,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"go-base/internal/app/router"
+
 	"github.com/stretchr/testify/assert"
-	"viveportengineering.visualstudio.com/Viveport-Core/_git/go-base.git/internal/app/router"
 )
 
 func TestHealth(t *testing.T) {
